@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aulia Nur Rachmatika — QA Lead</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --ink: #1A1A18;
+    --ink-muted: #4A4A45;
+    --ink-faint: #8A8A82;
+    --accent: #2D5A3D;
+    --accent-light: #E8F0EA;
+    --accent-mid: #4A8C61;
+    --warm: #C4873A;
+    --warm-light: #F5EAD8;
+    --border: rgba(26,26,24,0.12);
+    --border-strong: rgba(26,26,24,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── WRITING / ARTICLES ─── */
+  .writing-section { background: var(--cream); }
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .article-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+  .article-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 8px 24px rgba(45,90,61,0.1);
+    transform: translateY(-3px);
+  }
+  .article-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2rem;
+    width: fit-content;
+  }
+  .article-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  .article-excerpt {
+    font-size: 0.83rem;
+    line-height: 1.7;
+    color: var(--ink-muted);
+    flex: 1;
+  }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    font-family: 'DM Mono', monospace;
+  }
+  .article-read-more {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent);
+    font-weight: 500;
+    font-size: 0.78rem;
+    font-family: 'Sora', sans-serif;
+  }
+  .article-skeleton {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .skeleton-line {
+    height: 0.75rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(90deg, var(--accent-light) 25%, var(--cream) 50%, var(--accent-light) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+  .writing-cta {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 4rem;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 3rem 6rem 4rem;
+    border-right: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--accent);
+  }
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+  .hero-name em { font-style: italic; color: var(--accent-mid); }
+  .hero-title {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--ink-muted);
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.02em;
+  }
+  .hero-desc {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--ink-muted);
+    max-width: 44ch;
+    margin-bottom: 3rem;
+  }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.85rem 1.75rem;
+    border-radius: 2rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--border-strong);
+    color: var(--ink);
+    padding: 0.85rem 1.75rem;
+    border-radius: 2rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 3rem;
+  }
+  .contact-grid { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 3rem; }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .contact-item:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(45,90,61,0.1); }
+  .contact-icon {
+    width: 2.25rem; height: 2.25rem;
+    border-radius: 50%;
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-icon svg { width: 14px; height: 14px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .contact-label { font-size: 0.7rem; color: var(--ink-faint); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+  .contact-value { font-size: 0.88rem; color: var(--ink); }
+  .location-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--warm-light);
+    color: var(--warm);
+    padding: 0.6rem 1.25rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 6rem 4rem; }
+  .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 3.5rem; }
+  .section-num { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--ink-faint); }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--ink); }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* ─── EXPERIENCE ─── */
+  .experience { background: white; }
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .exp-item:last-child { border-bottom: 1px solid var(--border); }
+  .exp-period { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--ink-faint); margin-bottom: 0.5rem; letter-spacing: 0.04em; }
+  .exp-company { font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
+  .exp-location { font-size: 0.78rem; color: var(--ink-faint); }
+  .exp-role { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--ink); margin-bottom: 1.25rem; }
+  .exp-role-tag {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+    margin-bottom: 1.25rem;
+  }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .exp-bullets li { font-size: 0.88rem; color: var(--ink-muted); padding-left: 1.25rem; position: relative; line-height: 1.65; }
+  .exp-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; }
+
+  /* ─── SKILLS ─── */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .skill-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.75rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .skill-card-icon {
+    width: 2.5rem; height: 2.5rem;
+    background: var(--accent-light);
+    border-radius: 0.6rem;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .skill-card-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .skill-card-title { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag { font-size: 0.78rem; color: var(--ink-muted); background: var(--cream); padding: 0.35rem 0.75rem; border-radius: 2rem; border: 1px solid var(--border); }
+
+  /* ─── TOOLS ─── */
+  .tools-section { background: white; }
+  .tools-grid { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .tool-pill {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 0.65rem 1.25rem;
+    border-radius: 2rem;
+    font-size: 0.85rem; font-weight: 500; color: var(--ink);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .tool-pill:hover { border-color: var(--accent-mid); background: var(--accent-light); }
+  .tool-pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-mid); flex-shrink: 0; }
+
+  /* ─── EDUCATION ─── */
+  .edu-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: start;
+    max-width: 700px;
+  }
+  .edu-degree { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--ink); margin-bottom: 0.35rem; }
+  .edu-school { font-size: 0.92rem; color: var(--ink-muted); margin-bottom: 0.75rem; }
+  .edu-focus-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.4rem; }
+  .edu-focus { font-size: 0.83rem; color: var(--ink-muted); }
+  .edu-period { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--ink-faint); white-space: nowrap; margin-top: 0.3rem; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 3rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-name { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 0.25rem; }
+  .footer-sub { font-size: 0.8rem; color: rgba(245,240,232,0.5); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 0.78rem; color: rgba(245,240,232,0.6); text-decoration: none; transition: color 0.2s; letter-spacing: 0.04em; }
+  .footer-links a:hover { color: var(--cream); }
+
+  /* ─── HIGHLIGHTS ─── */
+  .highlights { background: var(--accent); }
+  .highlights .section-title { color: var(--cream); }
+  .highlights .section-num { color: rgba(245,240,232,0.5); }
+  .highlights .section-line { background: rgba(245,240,232,0.2); }
+  .highlights-intro { font-size: 0.95rem; color: rgba(245,240,232,0.75); max-width: 60ch; margin-bottom: 3rem; line-height: 1.8; }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: rgba(245,240,232,0.15);
+    border: 1px solid rgba(245,240,232,0.15);
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+  }
+  .stat-box { background: rgba(245,240,232,0.06); padding: 2rem 1.5rem; text-align: center; transition: background 0.2s; }
+  .stat-box:hover { background: rgba(245,240,232,0.12); }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.8rem; color: var(--cream); line-height: 1; margin-bottom: 0.4rem; }
+  .stat-label { font-size: 0.78rem; color: rgba(245,240,232,0.6); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+  .achievement-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+  .achievement-card {
+    background: rgba(245,240,232,0.08);
+    border: 1px solid rgba(245,240,232,0.15);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .achievement-card:hover { background: rgba(245,240,232,0.13); transform: translateY(-2px); }
+  .achievement-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,240,232,0.5); margin-bottom: 0.75rem; }
+  .achievement-title { font-size: 1rem; font-weight: 600; color: var(--cream); margin-bottom: 0.5rem; line-height: 1.4; }
+  .achievement-desc { font-size: 0.83rem; color: rgba(245,240,232,0.65); line-height: 1.65; }
+
+  /* ─── PROJECTS ─── */
+  .projects-section { background: var(--cream); }
+  .project-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    margin-bottom: 3rem;
+    transition: box-shadow 0.2s;
+  }
+  .project-card:hover { box-shadow: 0 8px 32px rgba(26,26,24,0.08); }
+  .project-card-header {
+    padding: 2rem 2.5rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: start;
+  }
+  .project-badge {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .project-name { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--ink); margin-bottom: 0.5rem; }
+  .project-sub { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.7; max-width: 60ch; }
+  .project-period-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.85rem;
+    border-radius: 2rem;
+    white-space: nowrap;
+  }
+  .project-screenshots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
+  }
+  .project-screenshot {
+    background: white;
+    overflow: hidden;
+    position: relative;
+    cursor: zoom-in;
+  }
+  .project-screenshot img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .project-screenshot:hover img { transform: scale(1.04); }
+  .screenshot-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(26,26,24,0.7));
+    padding: 1.5rem 1rem 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .project-details {
+    padding: 1.75rem 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-detail-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.5rem; }
+  .project-detail-value { font-size: 0.87rem; color: var(--ink-muted); line-height: 1.65; }
+  .stat-inline {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2rem;
+    margin: 0.25rem 0.25rem 0 0;
+  }
+  .stat-inline.warn { background: #FEF3E2; color: #B45309; }
+  .photo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+  }
+  .photo-grid-item {
+    overflow: hidden;
+    background: white;
+    position: relative;
+    cursor: zoom-in;
+  }
+  .photo-grid-item img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .photo-grid-item:hover img { transform: scale(1.03); }
+  .photo-grid-item.full { grid-column: 1 / -1; }
+  .photo-grid-item.full img { height: 320px; }
+
+  /* ─── ZOOM ICON ─── */
+  .zoom-icon {
+    position: absolute; top: 8px; right: 8px;
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: rgba(26,26,24,0.55);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .project-screenshot:hover .zoom-icon,
+  .photo-grid-item:hover .zoom-icon { opacity: 1; }
+
+  /* ─── LIGHTBOX ─── */
+  .lightbox {
+    display: none;
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(5,6,10,0.97);
+    align-items: center; justify-content: center;
+    padding: 1.5rem;
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+
+  .lightbox-inner {
+    position: relative;
+    max-width: 92vw; max-height: 88vh;
+    animation: lbIn 0.22s ease;
+  }
+
+  @keyframes lbIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .lightbox-inner img {
+    display: block;
+    max-width: 92vw; max-height: 88vh;
+    border-radius: 10px;
+    object-fit: contain;
+    box-shadow: 0 0 80px rgba(0,0,0,0.8);
+  }
+
+  .lightbox-caption {
+    position: absolute; bottom: -2rem; left: 0; right: 0;
+    text-align: center;
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    letter-spacing: 0.1em; color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+  }
+
+  .lightbox-close {
+    position: absolute; top: -44px; right: 0;
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: rgba(255,255,255,0.6); font-size: 16px;
+    transition: background 0.2s, color 0.2s;
+    user-select: none;
+  }
+  .lightbox-close:hover { background: rgba(255,255,255,0.15); color: white; }
+
+  .lightbox-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: rgba(255,255,255,0.6); font-size: 22px;
+    transition: background 0.2s, color 0.2s;
+    user-select: none;
+  }
+  .lightbox-nav:hover { background: rgba(255,255,255,0.15); color: white; }
+  .lightbox-nav.prev { right: calc(100% + 14px); }
+  .lightbox-nav.next { left: calc(100% + 14px); }
+
+  .lightbox-counter {
+    position: absolute; top: -44px; left: 0;
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    color: rgba(255,255,255,0.35); letter-spacing: 0.08em;
+    line-height: 32px;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * { animation: fadeUp 0.7s ease both; }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(5) { animation-delay: 0.5s; }
+  .hero-right > * { animation: fadeUp 0.7s ease both; animation-delay: 0.4s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 4rem 1.5rem 2rem; border-right: none; border-bottom: 1px solid var(--border); }
+    .hero-right { padding: 2rem 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.75rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+    .lightbox-nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">ANR</a>
+  <ul class="nav-links">
+    <li><a href="#highlights">Highlights</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#writing">Writing</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding: 0;">
+  <div class="hero-left">
+    <div class="hero-eyebrow">QA Lead · East Java</div>
+    <h1 class="hero-name">Aulia Nur<br><em>Rachmatika</em></h1>
+    <p class="hero-title">Quality Assurance — Web, Mobile & ERP</p>
+    <p class="hero-desc">
+      Informatics Engineering graduate leading end-to-end testing across Web, Mobile App, ERP Backoffice, and AEM Hybris environments. Experienced in building test strategies, managing teams, and delivering stable releases on time.
+    </p>
+    <div class="hero-cta">
+      <a href="mailto:aulianurrachmatika02@gmail.com" class="btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Get in touch
+      </a>
+      <a href="https://github.com/aulia-nur-rachmatika" target="_blank" class="btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="contact-grid">
+      <a href="tel:+6289612808826" class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.91-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">+62 896-1280-8826</div>
+        </div>
+      </a>
+      <a href="mailto:aulianurrachmatika02@gmail.com" class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">aulianurrachmatika02@gmail.com</div>
+        </div>
+      </a>
+      <a href="https://linkedin.com/in/aulianurtika" target="_blank" class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">linkedin.com/aulianurtika</div>
+        </div>
+      </a>
+      <a href="https://github.com/aulia-nur-rachmatika" target="_blank" class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </div>
+        <div>
+          <div class="contact-label">GitHub</div>
+          <div class="contact-value">aulia-nur-rachmatika</div>
+        </div>
+      </a>
+    </div>
+    <div class="location-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      East Java, Indonesia
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="highlights" id="highlights">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Highlights</h2>
+    <div class="section-line"></div>
+  </div>
+  <p class="highlights-intro">
+    Key numbers and milestones from over 2 years of hands-on QA work — from leading large teams to shipping stable releases across complex environments.
+  </p>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">25</div><div class="stat-label">QA Team Members Led</div></div>
+    <div class="stat-box"><div class="stat-num">4+</div><div class="stat-label">Platforms Tested</div></div>
+    <div class="stat-box"><div class="stat-num">2+</div><div class="stat-label">Years QA Experience</div></div>
+    <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Environments Managed</div></div>
+  </div>
+  <div class="achievement-grid">
+    <div class="achievement-card">
+      <div class="achievement-tag">Leadership</div>
+      <div class="achievement-title">Led 25-Member QA Team at Ordo</div>
+      <div class="achievement-desc">Directed end-to-end testing activities across Web, Mobile App, ERP Backoffice, and AEM Hybris — managing task assignments, progress tracking, and release coordination simultaneously.</div>
+    </div>
+    <div class="achievement-card">
+      <div class="achievement-tag">Automation</div>
+      <div class="achievement-title">Katalon Automation for Regression & Production</div>
+      <div class="achievement-desc">Built and executed automation test scripts using Katalon to support production regression cycles, reducing manual effort and catching regressions before release.</div>
+    </div>
+    <div class="achievement-card">
+      <div class="achievement-tag">Release Quality</div>
+      <div class="achievement-title">End-to-End Release Validation</div>
+      <div class="achievement-desc">Managed full regression testing and hotfix validation pipelines before every production release — coordinating directly with developers and release managers to ensure on-time, stable deployments.</div>
+    </div>
+    <div class="achievement-card">
+      <div class="achievement-tag">ERP & Integration</div>
+      <div class="achievement-title">ERP Integration Testing at Scale</div>
+      <div class="achievement-desc">Handled end-to-end ERP integration testing and backoffice validation across Staging and Production environments, ensuring data integrity between SAP-based systems.</div>
+    </div>
+    <div class="achievement-card">
+      <div class="achievement-tag">Reporting</div>
+      <div class="achievement-title">Daily Test Reporting & Defect Management</div>
+      <div class="achievement-desc">Consistently prepared daily reports, test summaries, and defect trackers — giving stakeholders full visibility into release readiness and team progress.</div>
+    </div>
+    <div class="achievement-card">
+      <div class="achievement-tag">Cross-functional</div>
+      <div class="achievement-title">Bangkit Academy Capstone — Multidisciplinary Team</div>
+      <div class="achievement-desc">Collaborated across ML, Cloud, and Mobile Development cohorts on an industry-level capstone project, applying real-world Agile practices and cross-functional teamwork.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- PROJECT 1: CBT -->
+  <div class="project-card">
+    <div class="project-card-header">
+      <div>
+        <div class="project-badge">Software Testing Internship · Politeknik Angkatan Darat, Batu</div>
+        <div class="project-name">CBT Website — QA Testing Project</div>
+        <div class="project-sub">End-to-end quality assurance untuk platform Computer-Based Test (CBT) terintegrasi Odoo, dikerjakan langsung di lapangan bersama supervisor Politeknik Angkatan Darat. Mencakup manual testing, test case design, automation dengan Katalon Studio (BDD), serta validasi UI/UX untuk memastikan sistem siap pakai sebelum release.</div>
+      </div>
+      <div class="project-period-badge">Jul — Aug 2023</div>
+    </div>
+    <div class="project-screenshots">
+      <div class="project-screenshot" onclick="openLightbox(this)">
+        <img src="images/1.webp" alt="Automation Testing with Katalon Studio" />
+        <div class="screenshot-label">Automation — Katalon Studio</div>
+        <div class="zoom-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+      <div class="project-screenshot" onclick="openLightbox(this)">
+        <img src="images/2.webp" alt="Manual Testing — Test Case Creation" />
+        <div class="screenshot-label">Manual Testing — Test Case Design</div>
+        <div class="zoom-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+      <div class="project-screenshot" onclick="openLightbox(this)">
+        <img src="images/3.webp" alt="CBT Website User Interface" />
+        <div class="screenshot-label">User Interface — CBT Website</div>
+        <div class="zoom-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+    </div>
+    <div class="project-details">
+      <div class="project-detail-block">
+        <div class="project-detail-label">Automation Results</div>
+        <div class="project-detail-value">
+          <span class="stat-inline">85 scenarios executed</span>
+          <span class="stat-inline">84 passed ✓</span>
+          <span class="stat-inline warn">1 failed</span>
+          <div style="margin-top:0.6rem;font-size:0.82rem;color:var(--ink-faint);">Failed scenario: image upload feature on page refresh — documented and reported.</div>
+        </div>
+      </div>
+      <div class="project-detail-block">
+        <div class="project-detail-label">Testing Approach</div>
+        <div class="project-detail-value">Manual black box testing · Automation dengan Katalon (BDD/Cucumber + Groovy) · Feedback via student surveys</div>
+      </div>
+      <div class="project-detail-block">
+        <div class="project-detail-label">Platform Focus</div>
+        <div class="project-detail-value">CBT terintegrasi Odoo — navigasi, responsivitas, dan usability untuk mahasiswa & administrator</div>
+      </div>
+      <div class="project-detail-block">
+        <div class="project-detail-label">Key Deliverables</div>
+        <div class="project-detail-value">Test case documentation · Automation scripts · Defect reports · Rekomendasi peningkatan UX</div>
+      </div>
+    </div>
+    <div style="border-top: 1px solid var(--border);">
+      <div class="photo-grid">
+        <div class="photo-grid-item" onclick="openLightbox(this)">
+          <img src="images/4.webp" alt="Sesi kerja bersama supervisor di Politeknik Angkatan Darat" />
+          <div class="zoom-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+        </div>
+        <div class="photo-grid-item" onclick="openLightbox(this)">
+          <img src="images/5.webp" alt="Foto bersama tim Politeknik Angkatan Darat" />
+          <div class="zoom-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 2: Playwright -->
+  <div class="project-card">
+    <div class="project-card-header">
+      <div>
+        <div class="project-badge">Personal Project · Self-initiated</div>
+        <div class="project-name">Test Automation dengan Playwright</div>
+        <div class="project-sub">Proyek automation testing pertama yang dibuat secara mandiri menggunakan Playwright. Berhasil menulis test case, mengeksekusi automation, dan menghasilkan laporan dalam format HTML dan Excel — siap dibagikan ke tim.</div>
+      </div>
+      <div class="project-period-badge">Apr 2026</div>
+    </div>
+    <div class="project-screenshots">
+      <div class="project-screenshot" onclick="openLightbox(this)">
+        <img src="images/pw1.webp" alt="Playwright test results — 3/3 passed" />
+        <div class="screenshot-label">Playwright — HTML Test Report</div>
+        <div class="zoom-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+      <div class="project-screenshot" onclick="openLightbox(this)">
+        <img src="images/pw2.webp" alt="Excel test result report" />
+        <div class="screenshot-label">Excel Report — Export Results</div>
+        <div class="zoom-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+    </div>
+    <div class="project-details">
+      <div class="project-detail-block">
+        <div class="project-detail-label">Test Results</div>
+        <div class="project-detail-value">
+          <span class="stat-inline">3 test cases</span>
+          <span class="stat-inline">3/3 passed ✓</span>
+          <span class="stat-inline">Total: 18s</span>
+          <div style="margin-top:0.6rem;font-size:0.82rem;color:var(--ink-faint);">0 failed · 0 flaky · 0 skipped</div>
+        </div>
+      </div>
+      <div class="project-detail-block">
+        <div class="project-detail-label">Test Cases</div>
+        <div class="project-detail-value">Add multiple items to cart (8.7s) · Checkout dengan data valid (3.5s) · Login dan checkout di Saucedemo (9.1s)</div>
+      </div>
+      <div class="project-detail-block">
+        <div class="project-detail-label">Tools & Stack</div>
+        <div class="project-detail-value">Playwright · Node.js · HTML Reporter (<code style="font-size:0.8rem;background:var(--cream);padding:0.1rem 0.4rem;border-radius:0.3rem;">npx playwright test --reporter=html</code>) · Excel export via <code style="font-size:0.8rem;background:var(--cream);padding:0.1rem 0.4rem;border-radius:0.3rem;">node export-excel.js</code></div>
+      </div>
+      <div class="project-detail-block">
+        <div class="project-detail-label">Next Steps</div>
+        <div class="project-detail-value">Memperluas coverage dengan lebih banyak test case agar automation ini siap digunakan pada project yang lebih besar dan kompleks.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT 3: Confidential E-Commerce -->
+  <div class="project-card">
+    <div class="project-card-header">
+      <div>
+        <div class="project-badge" style="display:inline-flex;align-items:center;gap:0.5rem;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Confidential · QA Lead — Global E-Commerce Platform
+        </div>
+        <div class="project-name">E-Commerce QA — Multi-Country Platform</div>
+        <div class="project-sub">Terlibat sebagai QA Lead dalam pengujian platform e-commerce skala global yang beroperasi di beberapa negara/region. Bertanggung jawab atas end-to-end quality assurance mulai dari pengujian manual, SIT, regression testing, hingga release sign-off — memastikan sistem berjalan stabil di seluruh environment sebelum go-live.</div>
+      </div>
+      <div class="project-period-badge" style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;">
+        <span>2024 — Present</span>
+        <span style="font-size:0.7rem;background:var(--accent-light);color:var(--accent);padding:0.25rem 0.6rem;border-radius:2rem;font-weight:600;letter-spacing:0.06em;">ONGOING</span>
+      </div>
+    </div>
+    <div class="project-screenshots">
+      <div class="project-screenshot" onclick="openLightbox(this)">
+        <img src="images/jira.png" alt="Jira Filter Statistics" />
+        <div class="screenshot-label">Test Case Statistics</div>
+        <div class="zoom-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+      <div class="project-screenshot" onclick="openLightbox(this)">
+        <img src="images/jira2.png" alt="Jira Pie Chart" />
+        <div class="screenshot-label">Status Distribution</div>
+        <div class="zoom-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
+      </div>
+    </div>
+    <div class="project-details">
+      <div class="project-detail-block">
+        <div class="project-detail-label">Scope</div>
+        <div class="project-detail-value">
+          <span class="stat-inline">Multi-Country</span>
+          <span class="stat-inline">Web · Mobile · Backend</span>
+          <span class="stat-inline">Staging & Production</span>
+          <div style="margin-top:0.6rem;font-size:0.82rem;color:var(--ink-faint);">Cross-regional coordination dengan tim global (VN team & dev team) untuk issue investigation.</div>
+        </div>
+      </div>
+      <div class="project-detail-block">
+        <div class="project-detail-label">Testing Coverage</div>
+        <div class="project-detail-value">Functional &amp; Performance Testing · Payment Validation (Amber / Adyen) · Pickup &amp; Return Flow (Full/Partial Replacement · SIT Return) · Reward Points &amp; B2B Order Validation · ERP Backoffice &amp; SAP Monitoring · Bug Finding, Reporting &amp; Verification</div>
+      </div>
+      <div class="project-detail-block">
+        <div class="project-detail-label">Tools & Stack</div>
+        <div class="project-detail-value">Katalon · Jira · Confluence · SAP / ERP Backoffice System</div>
+      </div>
+      <div class="project-detail-block">
+        <div class="project-detail-label">Leadership</div>
+        <div class="project-detail-value">Mengatur testing scope &amp; priority · Follow-up team progress · Koordinasi stakeholder untuk release sign-off · Investigasi critical issue saat UAT &amp; production</div>
+      </div>
+      <div class="project-detail-block">
+        <div class="project-detail-label">Confidentiality Note</div>
+        <div class="project-detail-value" style="font-size:0.8rem;color:var(--ink-faint);font-style:italic;">Detail klien, nama platform, dan informasi spesifik negara bersifat rahasia dan tidak dapat dipublikasikan.</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Jul 2024 — Present</div>
+        <div class="exp-company">Ordo</div>
+        <div class="exp-location">Surabaya, East Java</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role-tag">Current Role</div>
+        <div class="exp-role">QA Lead</div>
+        <ul class="exp-bullets">
+          <li>Led a QA team of 25 members in end-to-end testing activities.</li>
+          <li>Managed testing for Web, Mobile App, ERP Backoffice, and AEM Hybris (STG & PROD).</li>
+          <li>Prepared test strategies aligned with project scope and release schedule.</li>
+          <li>Created, reviewed, and maintained test cases based on business and functional requirements.</li>
+          <li>Managed full regression testing and hotfix validation before production releases.</li>
+          <li>Performed ERP integration testing and backoffice validation.</li>
+          <li>Executed automation test scripts using Katalon to support production testing.</li>
+          <li>Analyzed automation results and ensured issue follow-up before release.</li>
+          <li>Assigned tasks to team members and monitored progress to meet deadlines.</li>
+          <li>Coordinated with developers and release managers to align release timelines.</li>
+          <li>Prepared daily reports, test summaries, and defect reports.</li>
+          <li>Supported post-release validation and production issue analysis.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Jul 2023 — Aug 2023</div>
+        <div class="exp-company">Politeknik Angkatan Darat</div>
+        <div class="exp-location">Batu, East Java</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Software Testing Intern</div>
+        <ul class="exp-bullets">
+          <li>Conducted black box and functional testing.</li>
+          <li>Assisted in regression testing activities.</li>
+          <li>Supported automation testing using Katalon (BDD approach).</li>
+          <li>Documented test results and reported defects.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Feb 2023 — Aug 2023</div>
+        <div class="exp-company">Bangkit Academy</div>
+        <div class="exp-location">by Google, Gojek, Tokopedia, Traveloka</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Mobile Development Cohort</div>
+        <ul class="exp-bullets">
+          <li>Learned best practices in UI/UX design, database management, and API integration.</li>
+          <li>Worked on a capstone project in a multidisciplinary team, collaborating with ML and Cloud Computing cohorts.</li>
+          <li>Developed problem-solving and teamwork skills through industry-level project experience.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Skills</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+      <div class="skill-card-title">Test Design</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Test Case Design</span>
+        <span class="skill-tag">Test Case Review</span>
+        <span class="skill-tag">Test Strategy</span>
+        <span class="skill-tag">SIT & UAT</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="skill-card-title">Testing Types</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Regression Testing</span>
+        <span class="skill-tag">Hotfix Validation</span>
+        <span class="skill-tag">Web & Mobile Testing</span>
+        <span class="skill-tag">Black Box Testing</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon"><svg viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></div>
+      <div class="skill-card-title">Platforms</div>
+      <div class="skill-tags">
+        <span class="skill-tag">ERP Backoffice Testing</span>
+        <span class="skill-tag">AEM Hybris STG/PROD</span>
+        <span class="skill-tag">ERP Integration</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="skill-card-title">Leadership</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Team Management</span>
+        <span class="skill-tag">Task Assignment</span>
+        <span class="skill-tag">Progress Monitoring</span>
+        <span class="skill-tag">Defect Reporting</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools-section" id="tools">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Tools & Tech</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="tools-grid">
+    <div class="tool-pill"><div class="tool-pill-dot"></div>Katalon</div>
+    <div class="tool-pill"><div class="tool-pill-dot"></div>Jira</div>
+    <div class="tool-pill"><div class="tool-pill-dot"></div>Confluence</div>
+    <div class="tool-pill"><div class="tool-pill-dot"></div>SAP</div>
+    <div class="tool-pill"><div class="tool-pill-dot"></div>ERP System</div>
+    <div class="tool-pill"><div class="tool-pill-dot"></div>Notion</div>
+    <div class="tool-pill"><div class="tool-pill-dot"></div>AEM Hybris</div>
+    <div class="tool-pill"><div class="tool-pill-dot"></div>Git / GitHub</div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="education" id="education" style="background: white;">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-card">
+    <div>
+      <div class="edu-degree">Informatics Engineering</div>
+      <div class="edu-school">Universitas Islam Negeri Maulana Malik Ibrahim Malang — East Java, Indonesia</div>
+      <div class="edu-focus-label">Focus Areas</div>
+      <div class="edu-focus">Software Testing · Agile Software Development · Information System</div>
+    </div>
+    <div>
+      <div class="edu-period">Aug 2020 — Jul 2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section class="writing-section" id="writing">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2 class="section-title">Writing</h2>
+    <div class="section-line"></div>
+  </div>
+  <div id="articles-container">
+    <div class="articles-grid" id="articles-skeleton">
+      <div class="article-skeleton">
+        <div class="skeleton-line" style="width:40%;height:0.6rem"></div>
+        <div class="skeleton-line" style="width:85%;height:1rem;margin-top:0.25rem"></div>
+        <div class="skeleton-line" style="width:70%;height:1rem"></div>
+        <div class="skeleton-line" style="width:100%"></div>
+        <div class="skeleton-line" style="width:90%"></div>
+        <div class="skeleton-line" style="width:60%"></div>
+      </div>
+      <div class="article-skeleton">
+        <div class="skeleton-line" style="width:35%;height:0.6rem"></div>
+        <div class="skeleton-line" style="width:90%;height:1rem;margin-top:0.25rem"></div>
+        <div class="skeleton-line" style="width:75%;height:1rem"></div>
+        <div class="skeleton-line" style="width:100%"></div>
+        <div class="skeleton-line" style="width:85%"></div>
+        <div class="skeleton-line" style="width:50%"></div>
+      </div>
+      <div class="article-skeleton">
+        <div class="skeleton-line" style="width:45%;height:0.6rem"></div>
+        <div class="skeleton-line" style="width:80%;height:1rem;margin-top:0.25rem"></div>
+        <div class="skeleton-line" style="width:65%;height:1rem"></div>
+        <div class="skeleton-line" style="width:100%"></div>
+        <div class="skeleton-line" style="width:95%"></div>
+        <div class="skeleton-line" style="width:55%"></div>
+      </div>
+    </div>
+    <div id="articles-grid" class="articles-grid" style="display:none"></div>
+    <div id="articles-error" style="display:none;text-align:center;padding:3rem;color:var(--ink-faint);font-size:0.9rem;"></div>
+  </div>
+  <div class="writing-cta">
+    <a href="https://medium.com/@aulianurrachmatika02" target="_blank" class="btn-secondary">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+      View all on Medium
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-name">Aulia Nur Rachmatika</div>
+    <div class="footer-sub">QA Lead · East Java, Indonesia</div>
+  </div>
+  <div class="footer-links">
+    <a href="mailto:aulianurrachmatika02@gmail.com">Email</a>
+    <a href="https://linkedin.com/in/aulianurtika" target="_blank">LinkedIn</a>
+    <a href="https://github.com/aulia-nur-rachmatika" target="_blank">GitHub</a>
+    <a href="tel:+6289612808826">+62 896-1280-8826</a>
+  </div>
+</footer>
+
+<!-- ─── LIGHTBOX ─── -->
+<div class="lightbox" id="lightbox" onclick="handleLightboxClick(event)">
+  <div class="lightbox-inner" id="lightboxInner">
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+    <div class="lightbox-close" onclick="closeLightbox()">✕</div>
+    <div class="lightbox-nav prev" onclick="navigate(-1, event)">‹</div>
+    <div class="lightbox-nav next" onclick="navigate(1, event)">›</div>
+    <img id="lightboxImg" src="" alt="" />
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
+<!-- ─── LIGHTBOX SCRIPT ─── -->
+<script>
+  let allImages = [];
+  let currentIdx = 0;
+
+  function buildImageList() {
+    allImages = [];
+    document.querySelectorAll('.project-screenshot, .photo-grid-item').forEach(el => {
+      const img = el.querySelector('img');
+      const label = el.querySelector('.screenshot-label');
+      if (img) {
+        allImages.push({
+          src: img.src,
+          caption: label ? label.textContent.trim() : (img.alt || '')
+        });
+      }
+    });
+  }
+
+  function openLightbox(el) {
+    buildImageList();
+    const img = el.querySelector('img');
+    const src = img ? img.src : '';
+    currentIdx = allImages.findIndex(i => i.src === src);
+    if (currentIdx === -1) currentIdx = 0;
+    updateLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function handleLightboxClick(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  function navigate(dir, e) {
+    e.stopPropagation();
+    currentIdx = (currentIdx + dir + allImages.length) % allImages.length;
+    updateLightbox();
+  }
+
+  function updateLightbox() {
+    const img = document.getElementById('lightboxImg');
+    const caption = document.getElementById('lightboxCaption');
+    const counter = document.getElementById('lightboxCounter');
+    img.style.opacity = 0;
+    setTimeout(() => {
+      img.src = allImages[currentIdx].src;
+      img.alt = allImages[currentIdx].caption;
+      caption.textContent = allImages[currentIdx].caption;
+      counter.textContent = (currentIdx + 1) + ' / ' + allImages.length;
+      img.style.transition = 'opacity 0.2s';
+      img.style.opacity = 1;
+    }, 80);
+  }
+
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft')  navigate(-1, { stopPropagation: () => {} });
+    if (e.key === 'ArrowRight') navigate(1,  { stopPropagation: () => {} });
+  });
+</script>
+
+<!-- ─── MEDIUM ARTICLES SCRIPT ─── -->
+<script>
+(async function fetchMediumArticles() {
+  const skeleton = document.getElementById('articles-skeleton');
+  const grid = document.getElementById('articles-grid');
+  const errorEl = document.getElementById('articles-error');
+  const MEDIUM_URL = 'https://medium.com/@aulianurrachmatika02';
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+        messages: [{
+          role: 'user',
+          content: `Search for articles published by Aulia Nur Rachmatika on Medium at ${MEDIUM_URL}. Find at least 3-6 articles. For each article return: title, a 1-2 sentence excerpt/summary, publication date, tags/topics, and the full article URL. Respond ONLY with a valid JSON array, no markdown, no backticks. Format: [{"title":"...","excerpt":"...","date":"...","tags":["..."],"url":"..."}]`
+        }]
+      })
+    });
+
+    const data = await response.json();
+    const textBlocks = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+    const jsonMatch = textBlocks.match(/\[[\s\S]*\]/);
+    if (!jsonMatch) throw new Error('No articles found');
+
+    const articles = JSON.parse(jsonMatch[0]);
+    if (!articles.length) throw new Error('Empty articles list');
+
+    skeleton.style.display = 'none';
+    grid.style.display = 'grid';
+
+    articles.forEach(article => {
+      const tags = Array.isArray(article.tags) ? article.tags.slice(0, 2) : [];
+      const card = document.createElement('a');
+      card.className = 'article-card';
+      card.href = article.url || MEDIUM_URL;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+      card.innerHTML = `
+        <div class="article-tag">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>
+          ${tags[0] || 'Medium'}
+        </div>
+        <div class="article-title">${article.title}</div>
+        <div class="article-excerpt">${article.excerpt}</div>
+        <div class="article-meta">
+          <span>${article.date || ''}</span>
+          <span class="article-read-more">Read on Medium <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+  } catch (err) {
+    skeleton.style.display = 'none';
+    errorEl.style.display = 'block';
+    errorEl.innerHTML = `
+      <p style="margin-bottom:1rem">Couldn't load articles automatically.</p>
+      <a href="https://medium.com/@aulianurrachmatika02" target="_blank" class="btn-secondary" style="display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--border-strong);color:var(--ink);padding:0.85rem 1.75rem;border-radius:2rem;font-size:0.82rem;font-weight:500;text-decoration:none;">
+        View Articles on Medium →
+      </a>
+    `;
+  }
+})();
+</script>
+
+</body>
+</html>
